@@ -1,0 +1,16 @@
+﻿using DemoShoppe.Domain.Abstractions;
+
+namespace DemoShoppe.Domain.Entities
+{
+    public class Category: EntityAuditSortDeleteBase<int>
+    {
+        public required string Name { get; set; } 
+        public string? Description { get; set; }
+        public int? ParentId { get; set; }
+        public string? ImageUrl { get; set; }
+
+        public Category? Parent { get; set; }
+        public ICollection<Category> Children { get; set; } = new List<Category>();
+        public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+    }
+}

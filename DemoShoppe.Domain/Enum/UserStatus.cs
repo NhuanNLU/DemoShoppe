@@ -1,0 +1,9 @@
+﻿namespace DemoShoppe.Domain.Enum
+{
+    public enum UserStatus
+    {
+        Inactive = 0,       
+        Active = 1,        
+        Banned = 2    
+    }
+}

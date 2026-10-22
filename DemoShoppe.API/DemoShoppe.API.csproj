@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoShoppe.Application\DemoShoppe.Application.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Contract\DemoShoppe.Contract.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Domain\DemoShoppe.Domain.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Infrastructure\DemoShoppe.Infrastructure.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Persistence\DemoShoppe.Persistence.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Presentation\DemoShoppe.Presentation.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="DemoShoppe.API/DemoShoppe.API.csproj" />
+  <Project Path="DemoShoppe.Application/DemoShoppe.Application.csproj" />
+  <Project Path="DemoShoppe.Contract/DemoShoppe.Contract.csproj" />
+  <Project Path="DemoShoppe.Domain/DemoShoppe.Domain.csproj" />
+  <Project Path="DemoShoppe.Infrastructure/DemoShoppe.Infrastructure.csproj" />
+  <Project Path="DemoShoppe.Persistence/DemoShoppe.Persistence.csproj" />
+  <Project Path="DemoShoppe.Presentation/DemoShoppe.Presentation.csproj" />
+</Solution>

@@ -10,7 +10,7 @@ namespace DemoShoppe.Presentation.Controllers
         public CategoriesController(ISender sender) : base(sender) { }
         [HttpPost]
         public async Task<IActionResult> CreateCategory
-            (CreateCategoryRequest request,
+            ([FromBody]CreateCategoryRequest request,
             CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
@@ -20,7 +20,8 @@ namespace DemoShoppe.Presentation.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetAllCategory
-            ([FromQuery] GetAllCategoryRequest request, CancellationToken cancellationToken = default)
+            ([FromQuery] GetAllCategoryRequest request,
+            CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)
@@ -29,7 +30,18 @@ namespace DemoShoppe.Presentation.Controllers
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById
-            ([FromRoute] GetCategoryByIdRequest request, CancellationToken cancellationToken = default)
+            ([FromRoute] GetCategoryByIdRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
+            return Ok(result);
+        }
+        [HttpPatch]
+        public async Task<IActionResult> UpdateCategoryById
+            ([FromBody]UpdateCategoryByIdRequest request,
+            CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)

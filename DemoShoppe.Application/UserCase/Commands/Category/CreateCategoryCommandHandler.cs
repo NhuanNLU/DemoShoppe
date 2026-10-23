@@ -1,6 +1,7 @@
-﻿using DemoShoppe.Contract.Abstractions.Message;
+using DemoShoppe.Contract.Abstractions.Message;
 using DemoShoppe.Contract.Abstractions.Shared;
-using DemoShoppe.Contract.Services.Category;
+using DemoShoppe.Contract.Services.Category.Request;
+
 using DemoShoppe.Domain.Abstractions;
 using DemoShoppe.Domain.Abstractions.Repositories;
 

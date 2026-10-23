@@ -8,7 +8,7 @@ namespace DemoShoppe.Persistence.Repositories
         where TEntity : class
     {
         protected readonly AppDbContext _dbContext;
-        public RepositoryBase(AppDbContext dbContext)
+        protected RepositoryBase(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }

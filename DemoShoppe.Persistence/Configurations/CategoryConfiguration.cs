@@ -11,7 +11,8 @@ namespace DemoShoppe.Persistence.Configurations
             builder.Property(c => c.Name)
                    .HasMaxLength(150)
                    .IsRequired();
-
+            builder.HasIndex(c => c.Name)
+                .IsUnique();
             builder.Property(c => c.ImageUrl)
                    .HasMaxLength(500);
             builder.HasOne(c => c.Parent)

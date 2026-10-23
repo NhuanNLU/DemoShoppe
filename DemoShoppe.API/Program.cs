@@ -15,6 +15,7 @@ builder.Services.AddUnitOfWork();
 builder.Services.AddRepositoryBase();
 builder.Services.AddUserRepository();
 builder.Services.AddProfileRepository();
+builder.Services.AddCategoryRepository();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

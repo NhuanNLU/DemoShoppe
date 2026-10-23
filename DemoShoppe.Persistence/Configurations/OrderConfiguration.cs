@@ -9,24 +9,23 @@ namespace DemoShoppe.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasKey(e => e.Id);
-
-            builder.Property(e => e.OrderCode)
+            builder.HasKey(o => o.Id);
+            builder.Property(o => o.OrderCode)
                    .HasMaxLength(50)
                    .IsRequired();
 
-            builder.Property(e => e.Price)
+            builder.Property(o => o.Price)
                    .HasColumnType("decimal(18,2)");
 
-            builder.HasIndex(e => e.OrderCode).IsUnique();
+            builder.HasIndex(o => o.OrderCode).IsUnique();
 
             builder.Property(o => o.Status)
                 .IsRequired()
                 .HasDefaultValue(OrderStatus.Pending);
 
-            builder.HasOne(e => e.User)
+            builder.HasOne(o => o.User)
                    .WithMany(u => u.Orders)
-                   .HasForeignKey(e => e.UserId)
+                   .HasForeignKey(o => o.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

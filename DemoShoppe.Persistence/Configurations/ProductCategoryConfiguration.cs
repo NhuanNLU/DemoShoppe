@@ -7,16 +7,16 @@ namespace DemoShoppe.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductCategory> builder)
         {
-            builder.HasKey(e => new { e.ProductId, e.CategoryId });
+            builder.HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
-            builder.HasOne(e => e.Product)
+            builder.HasOne(pc => pc.Product)
                    .WithMany(p => p.ProductCategories)
-                   .HasForeignKey(e => e.ProductId)
+                   .HasForeignKey(pc => pc.ProductId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(e => e.Category)
+            builder.HasOne(pc => pc.Category)
                    .WithMany(c => c.ProductCategories)
-                   .HasForeignKey(e => e.CategoryId)
+                   .HasForeignKey(pc => pc.CategoryId)
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }

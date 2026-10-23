@@ -3,9 +3,9 @@ using DemoShoppe.Domain.Enum;
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class Order : EntityAuditSortDeleteBase<int>
+    public class Order : EntityAuditSortDeleteBase<Guid>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public required string OrderCode { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public required decimal Price { get; set; }

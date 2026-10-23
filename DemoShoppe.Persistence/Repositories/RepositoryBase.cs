@@ -7,13 +7,13 @@ namespace DemoShoppe.Persistence.Repositories
         IRepositoryBase<TEntity, TKey>
         where TEntity : class
     {
-        private readonly AppDbContext _dbContext;
+        protected readonly AppDbContext _dbContext;
         public RepositoryBase(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
         public async Task<List<TEntity>> FindAll(CancellationToken cancellationToken = default)
-            => await _dbContext.Set<TEntity>().ToListAsync(cancellationToken);
+            => await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync(cancellationToken);
 
         public async Task<TEntity> FindById(TKey id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<TEntity>().FindAsync(id, cancellationToken);

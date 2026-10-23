@@ -2,10 +2,10 @@
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class ProductImage: EntityAuditSortDeleteBase<int>
+    public class ProductImage : EntityAuditSortDeleteBase<Guid>
     {
-        public int ProductId { get; set; }
-        public required string ImageUrl { get; set; } 
+        public Guid ProductId { get; set; }
+        public required string ImageUrl { get; set; }
         public bool IsPrimary { get; set; }
         public Product Product { get; set; }
     }

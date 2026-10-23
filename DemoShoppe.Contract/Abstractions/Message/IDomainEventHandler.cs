@@ -2,7 +2,7 @@
 
 namespace DemoShoppe.Contract.Abstractions.Message
 {
-    public interface IDomainEventHander: INotificationHandler<IDomainEvent>
+    public interface IDomainEventHandler: INotificationHandler<IDomainEvent>
     {
     }
 }

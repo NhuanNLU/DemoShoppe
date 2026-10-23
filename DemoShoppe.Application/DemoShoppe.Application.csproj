@@ -11,4 +11,13 @@
     <ProjectReference Include="..\DemoShoppe.Domain\DemoShoppe.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserCase\Commands\Profile\" />
+    <Folder Include="UserCase\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+  </ItemGroup>
+
 </Project>

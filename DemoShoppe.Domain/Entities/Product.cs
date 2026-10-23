@@ -2,9 +2,9 @@
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class Product : EntityAuditSortDeleteBase<int>
+    public class Product : EntityAuditSortDeleteBase<Guid>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public required string Name { get; set; }
         public string? Description { get; set; }
         public required decimal Price { get; set; }

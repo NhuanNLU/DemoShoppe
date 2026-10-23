@@ -6,7 +6,7 @@ namespace DemoShoppe.Domain.Abstractions
         IEntityAuditBase<TKey>, ISortDelete
     {
         public required TKey Id { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
+        public required DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
         public required string CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }

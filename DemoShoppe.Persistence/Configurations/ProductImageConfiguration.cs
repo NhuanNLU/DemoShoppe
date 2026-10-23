@@ -8,15 +8,14 @@ namespace DemoShoppe.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductImage> builder)
         {
-            builder.HasKey(e => e.Id);
-
-            builder.Property(e => e.ImageUrl)
+            builder.HasKey(pi => pi.Id);
+            builder.Property(pi => pi.ImageUrl)
                    .HasMaxLength(500)
                    .IsRequired();
 
-            builder.HasOne(e => e.Product)
+            builder.HasOne(pi => pi.Product)
                    .WithMany(p => p.ProductImages)
-                   .HasForeignKey(e => e.ProductId)
+                   .HasForeignKey(pi => pi.ProductId)
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }

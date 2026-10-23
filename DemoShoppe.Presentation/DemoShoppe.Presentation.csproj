@@ -15,8 +15,4 @@
     <ProjectReference Include="..\DemoShoppe.Contract\DemoShoppe.Contract.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

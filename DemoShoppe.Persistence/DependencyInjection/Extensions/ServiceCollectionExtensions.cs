@@ -16,5 +16,9 @@ namespace DemoShoppe.Persistence.DependencyInjection.Extensions
         public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
             => services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        public static IServiceCollection AddUserRepository(this IServiceCollection services)
+            => services.AddScoped<IUserRepository, UserRepository>();
+        public static IServiceCollection AddProfileRepository(this IServiceCollection services)
+            => services.AddScoped<IProfileRepository, ProfileRepository>();
     }
 }

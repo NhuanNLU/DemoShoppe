@@ -2,11 +2,11 @@
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class Category: EntityAuditSortDeleteBase<int>
+    public class Category : EntityAuditSortDeleteBase<Guid>
     {
-        public required string Name { get; set; } 
+        public required string Name { get; set; }
         public string? Description { get; set; }
-        public int? ParentId { get; set; }
+        public Guid? ParentId { get; set; }
         public string? ImageUrl { get; set; }
 
         public Category? Parent { get; set; }

@@ -8,16 +8,15 @@ namespace DemoShoppe.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
-            builder.HasKey(e => e.Id);
-
-            builder.HasOne(e => e.User)
+            builder.HasKey(c => c.Id);
+            builder.HasOne(c => c.User)
                    .WithMany(u => u.Carts)
-                   .HasForeignKey(e => e.UserId)
+                   .HasForeignKey(c => c.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(e => e.Product)
+            builder.HasOne(c => c.Product)
                    .WithMany(p => p.Carts)
-                   .HasForeignKey(e => e.ProductId)
+                   .HasForeignKey(c => c.ProductId)
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }

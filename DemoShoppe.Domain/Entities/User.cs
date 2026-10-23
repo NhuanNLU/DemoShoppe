@@ -3,7 +3,7 @@ using DemoShoppe.Domain.Enum;
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class User : EntityAuditSortDeleteBase<int>
+    public class User : EntityAuditSortDeleteBase<Guid>
     {
         public required string Username { get; set; }
         public required string PasswordHash { get; set; }

@@ -3,9 +3,9 @@ using DemoShoppe.Domain.Enum;
 
 namespace DemoShoppe.Domain.Entities
 {
-    public class Profile : EntityAuditSortDeleteBase<int>
+    public class Profile : EntityAuditSortDeleteBase<Guid>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? PhoneNumber { get; set; }

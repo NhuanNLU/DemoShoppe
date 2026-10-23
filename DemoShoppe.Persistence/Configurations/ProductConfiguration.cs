@@ -7,19 +7,18 @@ namespace DemoShoppe.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(e => e.Id);
-
-            builder.Property(e => e.Name)
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Name)
                    .HasMaxLength(255)
                    .IsRequired();
 
-            builder.Property(e => e.Price)
+            builder.Property(p => p.Price)
                    .IsRequired()
                    .HasColumnType("decimal(18,2)");
 
-            builder.HasOne(e => e.User)
+            builder.HasOne(p => p.User)
                    .WithMany(u => u.Products)
-                   .HasForeignKey(e => e.UserId)
+                   .HasForeignKey(p => p.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

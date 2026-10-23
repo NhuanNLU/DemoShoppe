@@ -20,5 +20,6 @@
         public static Error Unauthorized(string message) => new Error(message, 401);
         public static Error Forbidden(string message) => new Error(message, 403);
         public static Error InternalServerError(string message) => new Error(message, 500);
+        public static Error Conflict(string message) => new Error(message, 409);
     }
 }

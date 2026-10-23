@@ -25,6 +25,9 @@ namespace DemoShoppe.Persistence.Configurations
                 .HasMaxLength(255);
             builder.Property(p => p.FacebookUrl)
                 .HasMaxLength(255);
+            builder.HasOne(p => p.User)
+                .WithOne(p => p.Profile)
+                .HasForeignKey<Profile>(p => p.UserId);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DemoShoppe.Persistence.Repositories
         public async Task<bool> CategoryNameExists(string name)
             => await _dbContext.Categories.AnyAsync(x => x.Name == name);
 
-        public async Task<bool> HasParentCategory(Guid parentId)
-            => await _dbContext.Categories.AnyAsync(x => x.Id == parentId);
+        public async Task<int> CountCategory()
+            => await _dbContext.Categories.CountAsync();
     }
 }

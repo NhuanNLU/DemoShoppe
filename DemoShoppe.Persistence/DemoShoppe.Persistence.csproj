@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DemoShoppe.Application\DemoShoppe.Application.csproj" />
+    <ProjectReference Include="..\DemoShoppe.Contract\DemoShoppe.Contract.csproj" />
     <ProjectReference Include="..\DemoShoppe.Domain\DemoShoppe.Domain.csproj" />
   </ItemGroup>
 

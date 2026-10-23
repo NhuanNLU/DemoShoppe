@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="UserCase\Commands\Profile\" />
-    <Folder Include="UserCase\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

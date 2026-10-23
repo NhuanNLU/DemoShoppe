@@ -1,7 +1,7 @@
 ﻿using DemoShoppe.Contract.Abstractions.Message;
 using System.ComponentModel.DataAnnotations;
 
-namespace DemoShoppe.Contract.Services.Category
+namespace DemoShoppe.Contract.Services.Category.Request
 {
     public class CreateCategoryRequest : ICommand
     {

@@ -1,4 +1,4 @@
-﻿using DemoShoppe.Contract.Abstractions.Message;
+using DemoShoppe.Contract.Abstractions.Message;
 using DemoShoppe.Contract.Abstractions.Shared;
 using DemoShoppe.Contract.Services.Category.Request;
 using DemoShoppe.Contract.Services.Category.Response;

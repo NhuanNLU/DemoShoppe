@@ -6,31 +6,26 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
-    public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryRequest, PageResult<GetAllCategoryResponse>>
+    public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryCommand, PageResult<GetAllCategoryResponse>>
     {
         private readonly ICategoryRepository _categoryRepository;
         public GetAllCategoryQueryHandler(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task<Result<PageResult<GetAllCategoryResponse>>> Handle(GetAllCategoryRequest request, CancellationToken cancellationToken)
+        public async Task<Result<PageResult<GetAllCategoryResponse>>> Handle(GetAllCategoryCommand request, CancellationToken cancellationToken)
         {
             var getAllCategory = await _categoryRepository.FindAll(cancellationToken);
             var listCategoryDto = getAllCategory
-                .Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
+                .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
                 .Select(c => new GetAllCategoryResponse
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    ImageUrl = c.ImageUrl,
-                    Description = c.Description,
-                    ParentId = c.ParentId
-                }).ToList();
+                (c.Id, c.Name, c.ImageUrl, c.Description, c.ParentId))
+                .ToList();
             var result = new PageResult<GetAllCategoryResponse>
             {
                 Items = listCategoryDto,
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize,
+                PageIndex = request.pageIndex,
+                PageSize = request.pageSize,
                 TotalItems = await _categoryRepository.CountCategory()
             };
             return Result.Success(result);

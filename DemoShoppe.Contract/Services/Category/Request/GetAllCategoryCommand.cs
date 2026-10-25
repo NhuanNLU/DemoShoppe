@@ -4,9 +4,6 @@ using DemoShoppe.Contract.Services.Category.Response;
 
 namespace DemoShoppe.Contract.Services.Category.Request
 {
-    public class GetAllCategoryRequest : IQuery<PageResult<GetAllCategoryResponse>>
-    {
-        public int PageIndex { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
-    }
+    public sealed record GetAllCategoryCommand(int pageIndex, int pageSize) :
+        IQuery<PageResult<GetAllCategoryResponse>>;
 }

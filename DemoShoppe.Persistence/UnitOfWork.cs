@@ -9,7 +9,7 @@ namespace DemoShoppe.Persistence
         {
             _dbContext = dbContext;
         }
-        public async Task<int> SaveChangeAsync(CancellationToken cancellationToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

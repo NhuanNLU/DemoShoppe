@@ -3,8 +3,6 @@ using DemoShoppe.Contract.Services.Category.Response;
 
 namespace DemoShoppe.Contract.Services.Category.Request
 {
-    public class GetCategoryByIdRequest : IQuery<GetCategoryByIdResponse>
-    {
-        public Guid Id { get; set; }
-    }
+    public sealed record GetCategoryByIdCommand(Guid id)
+        : IQuery<GetCategoryByIdResponse>;
 }

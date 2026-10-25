@@ -16,7 +16,7 @@ namespace DemoShoppe.Presentation.Controllers
             _validator = validator;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterCommand request,
+        public async Task<IActionResult> Register([FromBody] RegisterCommand request,
             CancellationToken cancellation = default)
         {
             var validator = await _validator.ValidateAsync(request, cancellation);

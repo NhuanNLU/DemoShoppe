@@ -14,15 +14,15 @@ namespace DemoShoppe.Presentation.Controllers
         public CategoriesController(ISender sender,
             IValidator<CreateCategoryCommand> createCategoryValidator,
             IValidator<UpdateCategoryByIdCommand> updateCategoryByIdValidator
-            ) : 
-            base(sender) 
+            ) :
+            base(sender)
         {
             _createCategoryValidator = createCategoryValidator;
             _updateCategoryByIdValidator = updateCategoryByIdValidator;
         }
         [HttpPost]
         public async Task<IActionResult> CreateCategory
-            ([FromBody]CreateCategoryCommand request,
+            ([FromBody] CreateCategoryCommand request,
             CancellationToken cancellationToken = default)
         {
             var validator = await _createCategoryValidator.ValidateAsync(request, cancellationToken);
@@ -59,7 +59,7 @@ namespace DemoShoppe.Presentation.Controllers
         }
         [HttpPatch]
         public async Task<IActionResult> UpdateCategoryById
-            ([FromBody]UpdateCategoryByIdCommand request,
+            ([FromBody] UpdateCategoryByIdCommand request,
             CancellationToken cancellationToken = default)
         {
             var validator = await _updateCategoryByIdValidator.ValidateAsync(request, cancellationToken);

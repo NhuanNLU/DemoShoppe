@@ -24,5 +24,8 @@ namespace DemoShoppe.Persistence.Repositories
 
         public void Update(TEntity entity)
             => _dbContext.Set<TEntity>().Update(entity);
+
+        public async Task<int> TotalItems(CancellationToken cancellationToken = default)
+            => await _dbContext.Set<TEntity>().CountAsync(cancellationToken);
     }
 }

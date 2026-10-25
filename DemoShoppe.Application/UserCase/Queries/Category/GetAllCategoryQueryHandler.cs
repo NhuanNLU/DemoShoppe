@@ -26,7 +26,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
                 Items = listCategoryDto,
                 PageIndex = request.pageIndex,
                 PageSize = request.pageSize,
-                TotalItems = await _categoryRepository.CountCategory()
+                TotalItems = await _categoryRepository.TotalItems()
             };
             return Result.Success(result);
         }

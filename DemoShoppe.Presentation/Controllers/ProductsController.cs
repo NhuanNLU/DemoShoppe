@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoShoppe.Presentation.Controllers
 {
-    public class ProductsController: ApiController
+    public class ProductsController : ApiController
     {
         private readonly IValidator<CreateProductCommand> _createProductValidator;
         public ProductsController(ISender sender,
@@ -27,6 +27,16 @@ namespace DemoShoppe.Presentation.Controllers
                 return HandlerFailure(Result.Failure(Error.BadRequest(message)));
             }
             var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
+            return Ok(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllProduct(GetAllProductCommand request, CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
             return Ok(result);
         }
     }

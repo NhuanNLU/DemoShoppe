@@ -22,5 +22,9 @@ namespace DemoShoppe.Persistence.DependencyInjection.Extensions
             => services.AddScoped<IProfileRepository, ProfileRepository>();
         public static IServiceCollection AddCategoryRepository(this IServiceCollection services)
             => services.AddScoped<ICategoryRepository, CategoryRepository>();
+        public static IServiceCollection AddProductRepository(this IServiceCollection services)
+            => services.AddScoped<IProductRepository, ProductRepository>();
+        public static IServiceCollection AddProductCategoryRepository(this IServiceCollection services)
+            => services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
     }
 }

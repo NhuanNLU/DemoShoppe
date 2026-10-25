@@ -1,13 +1,14 @@
 ﻿using DemoShoppe.Contract.Abstractions.Message;
 using DemoShoppe.Contract.Abstractions.Shared;
 using DemoShoppe.Contract.Services.Auth.Request;
+using DemoShoppe.Contract.Services.Auth.Response;
 using DemoShoppe.Domain.Abstractions;
 using DemoShoppe.Domain.Abstractions.Repositories;
 using DemoShoppe.Domain.Entities;
 
 namespace DemoShoppe.Application.UserCase.Commands.Auth
 {
-    public class RegisterCommandHander : ICommandHandler<RegisterRequest>
+    public class RegisterCommandHander : ICommandHandler<RegisterCommand, RegisterResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly IProfileRepository _profileRepository;
@@ -20,20 +21,21 @@ namespace DemoShoppe.Application.UserCase.Commands.Auth
             _unitOfWork = unitOfWork;
             _profileRepository = profileRepository;
         }
-        public async Task<Result> Handle(RegisterRequest request, CancellationToken cancellationToken)
+
+        public async Task<Result<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            var checkEmail = await _userRepository.CheckEmailExistAsync(request.Email, cancellationToken);
-            if (checkEmail) return Result.Failure(Error.Conflict("Email da ton tai"));
-            var checkUsername = await _userRepository.CheckUsernameExistAsync(request.Username, cancellationToken);
-            if (checkUsername) return Result.Failure(Error.Conflict("Username da ton tai"));
+            var checkEmail = await _userRepository.CheckEmailExistAsync(request.email, cancellationToken);
+            if (checkEmail) return Result.Failure<RegisterResponse>(Error.Conflict("Email da ton tai"));
+            var checkUsername = await _userRepository.CheckUsernameExistAsync(request.username, cancellationToken);
+            if (checkUsername) return Result.Failure<RegisterResponse>(Error.Conflict("Username da ton tai"));
             var newUser = new User
             {
                 Id = Guid.NewGuid(),
-                Email = request.Email,
-                Username = request.Username,
-                PasswordHash = request.PasswordHash, //chưa mã hóa
+                Email = request.email,
+                Username = request.username,
+                PasswordHash = request.passwordHash, //chưa mã hóa
                 CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = request.Email,
+                CreatedBy = request.email,
                 IsDeleted = false
             };
             _userRepository.Add(newUser);
@@ -42,11 +44,11 @@ namespace DemoShoppe.Application.UserCase.Commands.Auth
                 Id = Guid.NewGuid(),
                 UserId = newUser.Id,
                 CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = request.Email
+                CreatedBy = request.email
             };
             _profileRepository.Add(newProfile);
-            await _unitOfWork.SaveChangeAsync(cancellationToken);
-            return Result.Success();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            return Result.Success(new RegisterResponse(newUser.Email, newUser.Username));
         }
     }
 }

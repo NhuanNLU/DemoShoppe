@@ -6,26 +6,23 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
-    public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdRequest, GetCategoryByIdResponse>
+    public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdCommand, GetCategoryByIdResponse>
     {
         private readonly ICategoryRepository _categoryRepository;
         public GetCategoryByIdQueryHandler(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task<Result<GetCategoryByIdResponse>> Handle(GetCategoryByIdRequest request, CancellationToken cancellationToken)
+        public async Task<Result<GetCategoryByIdResponse>> Handle(GetCategoryByIdCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.FindById(request.Id, cancellationToken);
-            if (category is null) 
+            var category = await _categoryRepository.FindById(request.id, cancellationToken);
+            if (category is null)
                 return Result.Failure<GetCategoryByIdResponse>(Error.NotFound("Khong tim thay category"));
-            var result = new GetCategoryByIdResponse
-            {
-                Id = category.Id,
-                name = category.Name,
-                Description = category.Description,
-                Image = category.ImageUrl,
-                ParentId = category.ParentId
-            };
+            var result = new GetCategoryByIdResponse(
+                category.Id,
+                category.Name,
+                category.Description,
+                category.ImageUrl);
             return Result.Success(result);
         }
     }

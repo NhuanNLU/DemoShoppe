@@ -18,7 +18,8 @@ namespace DemoShoppe.Application.UserCase.Queries.Product
         public async Task<Result<GetProductByIdResponse>> Handle
             (GetProductByIdCommand request, CancellationToken cancellationToken = default)
         {
-            var product = await _productRepository.FindQuery().FirstOrDefaultAsync(x => x.Id == request.id, cancellationToken);
+            var product = await _productRepository.FindQuery()
+                .FirstOrDefaultAsync(x => x.Id == request.id && x.IsDeleted == false, cancellationToken);
             if (product is null)
                 return Result.Failure<GetProductByIdResponse>(Error.NotFound("Không tìm thấy sản phẩm"));
             var result = new GetProductByIdResponse(

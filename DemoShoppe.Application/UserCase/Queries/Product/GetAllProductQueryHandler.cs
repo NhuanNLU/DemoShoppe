@@ -17,6 +17,8 @@ namespace DemoShoppe.Application.UserCase.Queries.Product
         }
         public async Task<Result<PageResult<GetAllProductResponse>>> Handle(GetAllProductCommand request, CancellationToken cancellationToken)
         {
+            if (request.pageIndex <= 0 || request.pageSize <= 0)
+                return Result.Failure<PageResult<GetAllProductResponse>>(Error.BadRequest("Số trang và số lượng phần tử phải lớn hơn 0"));
             var query = _productRepository.FindQuery();
             var listProduct = await query
                 .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)

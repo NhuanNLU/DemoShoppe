@@ -9,7 +9,6 @@ namespace DemoShoppe.Contract.Services.Category.Validators
         public UpdateCategoryByIdValidator()
         {
             RuleFor(x => x.name)
-                .NotEmpty().WithMessage("Tên danh mục không được để trống")
                 .MaximumLength(32).WithMessage("Tên danh mục quá dài");
         }
     }

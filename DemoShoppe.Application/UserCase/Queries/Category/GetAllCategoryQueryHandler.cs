@@ -3,6 +3,7 @@ using DemoShoppe.Contract.Abstractions.Shared;
 using DemoShoppe.Contract.Services.Category.Request;
 using DemoShoppe.Contract.Services.Category.Response;
 using DemoShoppe.Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
@@ -15,12 +16,12 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
         }
         public async Task<Result<PageResult<GetAllCategoryResponse>>> Handle(GetAllCategoryCommand request, CancellationToken cancellationToken)
         {
-            var getAllCategory = await _categoryRepository.FindAll(cancellationToken);
-            var listCategoryDto = getAllCategory
+            var query = _categoryRepository.FindAll();
+            var listCategoryDto = await query
                 .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
                 .Select(c => new GetAllCategoryResponse
                 (c.Id, c.Name, c.ImageUrl, c.Description, c.ParentId))
-                .ToList();
+                .ToListAsync();
             var result = new PageResult<GetAllCategoryResponse>
             {
                 Items = listCategoryDto,

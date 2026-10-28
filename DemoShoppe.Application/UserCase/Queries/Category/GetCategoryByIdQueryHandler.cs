@@ -6,7 +6,7 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
-    public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdCommand, GetCategoryByIdResponse>
+    public sealed class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdCommand, GetCategoryByIdResponse>
     {
         private readonly ICategoryRepository _categoryRepository;
         public GetCategoryByIdQueryHandler(ICategoryRepository categoryRepository)

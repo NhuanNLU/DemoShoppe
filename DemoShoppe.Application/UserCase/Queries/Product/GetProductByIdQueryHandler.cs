@@ -6,7 +6,7 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Queries.Product
 {
-    public class GetProductByIdQueryHandler :
+    public sealed class GetProductByIdQueryHandler :
         IQueryHandler<GetProductByIdCommand, GetProductByIdResponse>
     {
         private readonly IProductRepository _productRepository;

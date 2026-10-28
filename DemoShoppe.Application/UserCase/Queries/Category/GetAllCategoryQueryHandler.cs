@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
-    public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryCommand, PageResult<GetAllCategoryResponse>>
+    public sealed class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryCommand, PageResult<GetAllCategoryResponse>>
     {
         private readonly ICategoryRepository _categoryRepository;
         public GetAllCategoryQueryHandler(ICategoryRepository categoryRepository)

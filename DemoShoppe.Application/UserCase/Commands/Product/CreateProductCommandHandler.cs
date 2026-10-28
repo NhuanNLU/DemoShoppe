@@ -7,7 +7,7 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Commands.Product
 {
-    public class CreateProductCommandHandler :
+    public sealed class CreateProductCommandHandler :
         ICommandHandler<CreateProductCommand, CreateProductResponse>
     {
         private readonly IUnitOfWork _unitOfWork;

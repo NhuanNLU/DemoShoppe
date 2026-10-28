@@ -8,7 +8,7 @@ using DemoShoppe.Domain.Entities;
 
 namespace DemoShoppe.Application.UserCase.Commands.Auth
 {
-    public class RegisterCommandHander : ICommandHandler<RegisterCommand, RegisterResponse>
+    public sealed class RegisterCommandHander : ICommandHandler<RegisterCommand, RegisterResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly IProfileRepository _profileRepository;

@@ -25,9 +25,9 @@ namespace DemoShoppe.Application.UserCase.Commands.Auth
         public async Task<Result<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var checkEmail = await _userRepository.CheckEmailExistAsync(request.email, cancellationToken);
-            if (checkEmail) return Result.Failure<RegisterResponse>(Error.Conflict("Email da ton tai"));
+            if (checkEmail) return Result.Failure<RegisterResponse>(Error.Conflict("Email đã tồn tại"));
             var checkUsername = await _userRepository.CheckUsernameExistAsync(request.username, cancellationToken);
-            if (checkUsername) return Result.Failure<RegisterResponse>(Error.Conflict("Username da ton tai"));
+            if (checkUsername) return Result.Failure<RegisterResponse>(Error.Conflict("Username đã tồn tại"));
             var newUser = new User
             {
                 Id = Guid.NewGuid(),

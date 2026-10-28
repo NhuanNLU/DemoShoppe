@@ -4,6 +4,7 @@ using DemoShoppe.Contract.Services.Category.Request;
 using DemoShoppe.Contract.Services.Category.Response;
 using DemoShoppe.Domain.Abstractions;
 using DemoShoppe.Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Commands.Category
 {
@@ -17,15 +18,14 @@ namespace DemoShoppe.Application.UserCase.Commands.Category
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
-
         public async Task<Result<CreateCategoryResponse>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             if (await _categoryRepository.CategoryNameExists(request.name))
-                return Result.Failure<CreateCategoryResponse>(Error.Conflict("Category nay da ton tai"));
+                return Result.Failure<CreateCategoryResponse>(Error.Conflict("Tên danh mục này đã tồn tại"));
             if (request.parentId is not null)
             {
-                if (await _categoryRepository.FindById(request.parentId.Value) is null)
-                    return Result.Failure<CreateCategoryResponse>(Error.NotFound("Khong tim thay category cha"));
+                if (await _categoryRepository.FindQuery().AnyAsync(x => x.Id == request.parentId.Value))
+                    return Result.Failure<CreateCategoryResponse>(Error.NotFound("Không tìm thấy danh mục"));
             }
             var newCategory = new Domain.Entities.Category
             {

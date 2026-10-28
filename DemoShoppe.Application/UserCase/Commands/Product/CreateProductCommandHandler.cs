@@ -4,6 +4,7 @@ using DemoShoppe.Contract.Services.Product.Request;
 using DemoShoppe.Contract.Services.Product.Response;
 using DemoShoppe.Domain.Abstractions;
 using DemoShoppe.Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Commands.Product
 {
@@ -27,8 +28,8 @@ namespace DemoShoppe.Application.UserCase.Commands.Product
         }
         public async Task<Result<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var findCategory = await _categoryRepository.FindById(request.categoryId, cancellationToken);
-            if (findCategory is null)
+            var findCategory = await _categoryRepository.FindQuery().AnyAsync(x => x.Id == request.categoryId, cancellationToken);
+            if (!findCategory)
                 return Result.Failure<CreateProductResponse>
                     (Error.NotFound("Danh mục không tồn tại"));
             var newProduct = new Domain.Entities.Product

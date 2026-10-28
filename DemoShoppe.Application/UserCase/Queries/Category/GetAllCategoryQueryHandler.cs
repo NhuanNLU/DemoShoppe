@@ -16,7 +16,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
         }
         public async Task<Result<PageResult<GetAllCategoryResponse>>> Handle(GetAllCategoryCommand request, CancellationToken cancellationToken)
         {
-            var query = _categoryRepository.FindAll();
+            var query = _categoryRepository.FindQuery();
             var listCategoryDto = await query
                 .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
                 .Select(c => new GetAllCategoryResponse

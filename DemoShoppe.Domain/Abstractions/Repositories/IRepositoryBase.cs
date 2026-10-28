@@ -2,8 +2,8 @@
 {
     public interface IRepositoryBase<TEntity, TKey> where TEntity : class
     {
-        Task<TEntity> FindById(TKey id, CancellationToken cancellationToken = default);
-        IQueryable<TEntity> FindAll();
+        IQueryable<TEntity> FindQuery();
+        IQueryable<TEntity> FindCommand();
         Task<int> TotalItems(CancellationToken cancellationToken = default);
         void Add(TEntity entity);
         void Update(TEntity entity);

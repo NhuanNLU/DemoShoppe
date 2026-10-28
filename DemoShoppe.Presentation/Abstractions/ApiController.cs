@@ -1,5 +1,4 @@
 ﻿using DemoShoppe.Contract.Abstractions.Shared;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,12 +26,11 @@ namespace DemoShoppe.Presentation.Abstractions
 
             var title = statusCode switch
             {
-                StatusCodes.Status400BadRequest => "Bad Request",
                 StatusCodes.Status401Unauthorized => "Unauthorized",
                 StatusCodes.Status403Forbidden => "Forbidden",
                 StatusCodes.Status404NotFound => "Not Found",
                 StatusCodes.Status409Conflict => "Conflict",
-                _ => "Internal Server Error"
+                _ => "Bad Request"
             };
 
             return new ObjectResult(new ProblemDetails

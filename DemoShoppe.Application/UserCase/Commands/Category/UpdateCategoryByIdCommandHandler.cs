@@ -7,7 +7,7 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Commands.Category
 {
-    public class UpdateCategoryByIdCommandHandler : ICommandHandler<UpdateCategoryByIdCommand, UpdateCategoryByIdResponse>
+    public sealed class UpdateCategoryByIdCommandHandler : ICommandHandler<UpdateCategoryByIdCommand, UpdateCategoryByIdResponse>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;

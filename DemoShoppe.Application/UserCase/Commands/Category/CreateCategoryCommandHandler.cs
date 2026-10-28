@@ -7,7 +7,7 @@ using DemoShoppe.Domain.Abstractions.Repositories;
 
 namespace DemoShoppe.Application.UserCase.Commands.Category
 {
-    public class CreateCategoryCommandHandler : 
+    public sealed class CreateCategoryCommandHandler :
         ICommandHandler<CreateCategoryCommand, CreateCategoryResponse>
     {
         private readonly ICategoryRepository _categoryRepository;

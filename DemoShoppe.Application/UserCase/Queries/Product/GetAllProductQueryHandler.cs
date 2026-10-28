@@ -17,7 +17,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Product
         }
         public async Task<Result<PageResult<GetAllProductResponse>>> Handle(GetAllProductCommand request, CancellationToken cancellationToken)
         {
-            var query = _productRepository.FindAll();
+            var query = _productRepository.FindQuery();
             var listProduct = await query
                 .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
                 .Select(p => new GetAllProductResponse

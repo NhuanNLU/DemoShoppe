@@ -12,11 +12,10 @@ namespace DemoShoppe.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-        public IQueryable<TEntity> FindAll()
+        public IQueryable<TEntity> FindQuery()
             => _dbContext.Set<TEntity>().AsNoTracking();
-
-        public async Task<TEntity> FindById(TKey id, CancellationToken cancellationToken = default)
-            => await _dbContext.Set<TEntity>().FindAsync(id, cancellationToken);
+        public IQueryable<TEntity> FindCommand()
+            => _dbContext.Set<TEntity>();
         public void Add(TEntity entity)
             => _dbContext.Set<TEntity>().Add(entity);
         public void Remove(TEntity entity)

@@ -3,6 +3,7 @@ using DemoShoppe.Contract.Abstractions.Shared;
 using DemoShoppe.Contract.Services.Product.Request;
 using DemoShoppe.Contract.Services.Product.Response;
 using DemoShoppe.Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Queries.Product
 {
@@ -17,7 +18,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Product
         public async Task<Result<GetProductByIdResponse>> Handle
             (GetProductByIdCommand request, CancellationToken cancellationToken = default)
         {
-            var product = await _productRepository.FindById(request.id, cancellationToken);
+            var product = await _productRepository.FindQuery().FirstOrDefaultAsync(x => x.Id == request.id, cancellationToken);
             if (product is null)
                 return Result.Failure<GetProductByIdResponse>(Error.NotFound("Không tìm thấy sản phẩm"));
             var result = new GetProductByIdResponse(

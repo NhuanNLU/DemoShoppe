@@ -3,6 +3,7 @@ using DemoShoppe.Contract.Abstractions.Shared;
 using DemoShoppe.Contract.Services.Category.Request;
 using DemoShoppe.Contract.Services.Category.Response;
 using DemoShoppe.Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoShoppe.Application.UserCase.Queries.Category
 {
@@ -15,9 +16,10 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
         }
         public async Task<Result<GetCategoryByIdResponse>> Handle(GetCategoryByIdCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.FindById(request.id, cancellationToken);
+            var category = await _categoryRepository.FindQuery()
+                .FirstOrDefaultAsync(x => x.Id == request.id, cancellationToken);
             if (category is null)
-                return Result.Failure<GetCategoryByIdResponse>(Error.NotFound("Khong tim thay category"));
+                return Result.Failure<GetCategoryByIdResponse>(Error.NotFound("Không tìm thấy danh mục"));
             var result = new GetCategoryByIdResponse(
                 category.Id,
                 category.Name,

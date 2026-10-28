@@ -12,8 +12,8 @@ namespace DemoShoppe.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<List<TEntity>> FindAll(CancellationToken cancellationToken = default)
-            => await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync(cancellationToken);
+        public IQueryable<TEntity> FindAll()
+            => _dbContext.Set<TEntity>().AsNoTracking();
 
         public async Task<TEntity> FindById(TKey id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<TEntity>().FindAsync(id, cancellationToken);
@@ -26,6 +26,6 @@ namespace DemoShoppe.Persistence.Repositories
             => _dbContext.Set<TEntity>().Update(entity);
 
         public async Task<int> TotalItems(CancellationToken cancellationToken = default)
-            => await _dbContext.Set<TEntity>().CountAsync(cancellationToken);
+            => await _dbContext.Set<TEntity>().AsNoTracking().CountAsync(cancellationToken);
     }
 }

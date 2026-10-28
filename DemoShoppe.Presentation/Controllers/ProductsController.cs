@@ -20,7 +20,8 @@ namespace DemoShoppe.Presentation.Controllers
             _updateProductByIdValidator = updateProductByIdValidator;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> CreateProduct
+            ([FromBody] CreateProductCommand request, CancellationToken cancellationToken = default)
         {
             var validator = await _createProductValidator.ValidateAsync(request, cancellationToken);
             if (!validator.IsValid)
@@ -35,7 +36,8 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllProduct([FromQuery] GetAllProductCommand request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAllProduct
+            ([FromQuery] GetAllProductCommand request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)
@@ -43,7 +45,8 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateProductById([FromBody] UpdateProductByIdCommand request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> UpdateProductById
+            ([FromBody] UpdateProductByIdCommand request, CancellationToken cancellationToken = default)
         {
             var validator = await _updateProductByIdValidator.ValidateAsync(request, cancellationToken);
             if (!validator.IsValid)
@@ -60,6 +63,15 @@ namespace DemoShoppe.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById
             ([FromRoute] GetProductByIdCommand request, CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
+            return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProductById
+            ([FromQuery] DeleteProductByIdCommand request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)

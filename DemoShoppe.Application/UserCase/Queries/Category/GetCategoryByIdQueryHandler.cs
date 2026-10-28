@@ -17,7 +17,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
         public async Task<Result<GetCategoryByIdResponse>> Handle(GetCategoryByIdCommand request, CancellationToken cancellationToken)
         {
             var category = await _categoryRepository.FindQuery()
-                .FirstOrDefaultAsync(x => x.Id == request.id, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.id && x.IsDeleted == false, cancellationToken);
             if (category is null)
                 return Result.Failure<GetCategoryByIdResponse>(Error.NotFound("Không tìm thấy danh mục"));
             var result = new GetCategoryByIdResponse(

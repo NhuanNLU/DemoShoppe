@@ -5,7 +5,7 @@ namespace DemoShoppe.Contract.Services.Category.Request
 {
     public sealed record UpdateCategoryByIdCommand(
         Guid id,
-        string name,
+        string? name,
         string? description,
         string? imageUrl) : ICommand<UpdateCategoryByIdResponse>;
 }

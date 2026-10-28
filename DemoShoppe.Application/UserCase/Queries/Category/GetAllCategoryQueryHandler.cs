@@ -16,18 +16,20 @@ namespace DemoShoppe.Application.UserCase.Queries.Category
         }
         public async Task<Result<PageResult<GetAllCategoryResponse>>> Handle(GetAllCategoryCommand request, CancellationToken cancellationToken)
         {
+            if (request.pageIndex <= 0 || request.pageSize <= 0)
+                return Result.Failure<PageResult<GetAllCategoryResponse>>(Error.BadRequest("Số trang và số lượng phần tử phải lớn hơn 0"));
             var query = _categoryRepository.FindQuery();
-            var listCategoryDto = await query
+            var listCategory = await query.Where(x => x.IsDeleted == false)
                 .Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
                 .Select(c => new GetAllCategoryResponse
                 (c.Id, c.Name, c.ImageUrl, c.Description, c.ParentId))
                 .ToListAsync();
             var result = new PageResult<GetAllCategoryResponse>
             {
-                Items = listCategoryDto,
+                Items = listCategory,
                 PageIndex = request.pageIndex,
                 PageSize = request.pageSize,
-                TotalItems = await _categoryRepository.TotalItems()
+                TotalItems = await _categoryRepository.TotalItems(cancellationToken)
             };
             return Result.Success(result);
         }

@@ -24,7 +24,7 @@ namespace DemoShoppe.Application.UserCase.Commands.Category
                 return Result.Failure<CreateCategoryResponse>(Error.Conflict("Tên danh mục này đã tồn tại"));
             if (request.parentId is not null)
             {
-                if (await _categoryRepository.FindQuery().AnyAsync(x => x.Id == request.parentId.Value))
+                if (!await _categoryRepository.FindQuery().AnyAsync(x => x.Id == request.parentId.Value))
                     return Result.Failure<CreateCategoryResponse>(Error.NotFound("Không tìm thấy danh mục"));
             }
             var newCategory = new Domain.Entities.Category

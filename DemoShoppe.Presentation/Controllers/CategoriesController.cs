@@ -74,5 +74,14 @@ namespace DemoShoppe.Presentation.Controllers
                 return HandlerFailure(result);
             return Ok(result);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoryById
+            ([FromRoute] DeleteCategoryByIdCommand request, CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
+            return Ok(result);
+        }
     }
 }

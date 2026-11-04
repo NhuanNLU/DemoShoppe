@@ -10,9 +10,9 @@ namespace DemoShoppe.Persistence.Repositories
         {
         }
         public async Task<bool> CheckEmailExistAsync(string email, CancellationToken cancellationToken = default)
-            => await _dbContext.Users.AnyAsync(x => x.Email == email, cancellationToken);
+            => await _dbContext.Users.AsNoTracking().AnyAsync(x => x.Email == email, cancellationToken);
 
         public async Task<bool> CheckUsernameExistAsync(string username, CancellationToken cancellationToken = default)
-            => await _dbContext.Users.AnyAsync(x => x.Username == username, cancellationToken);
+            => await _dbContext.Users.AsNoTracking().AnyAsync(x => x.Username == username, cancellationToken);
     }
 }

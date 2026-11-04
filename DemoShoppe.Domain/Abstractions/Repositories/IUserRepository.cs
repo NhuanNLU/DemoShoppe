@@ -6,5 +6,6 @@ namespace DemoShoppe.Domain.Abstractions.Repositories
     {
         Task<bool> CheckEmailExistAsync(string email, CancellationToken cancellationToken = default);
         Task<bool> CheckUsernameExistAsync(string username, CancellationToken cancellationToken = default);
+        
     }
 }

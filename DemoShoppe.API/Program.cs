@@ -1,12 +1,15 @@
+using DemoShoppe.API.DependencyInjection.Extensions;
 using DemoShoppe.Application.DependencyInjection.Extensions;
 using DemoShoppe.Contract.DependencyInjection.Extensions;
+using DemoShoppe.Infrastructure.DependencyInjection.Extensions;
 using DemoShoppe.Persistence.DependencyInjection.Extensions;
 using DemoShoppe.Presentation.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddJwtTokenService();
 builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
 builder.Services.AddMediatR();
 builder.Services.AddFluentValidation();
@@ -28,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

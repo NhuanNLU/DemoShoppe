@@ -13,6 +13,7 @@ builder.Services.AddJwtTokenService();
 builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
 builder.Services.AddMediatR();
 builder.Services.AddFluentValidation();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddUnitOfWork();

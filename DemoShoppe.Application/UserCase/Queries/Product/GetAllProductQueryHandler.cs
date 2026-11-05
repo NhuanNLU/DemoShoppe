@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 namespace DemoShoppe.Application.UserCase.Queries.Product
 {
     public sealed class GetAllProductQueryHandler :
-        IQueryHandler<GetAllProductCommand, PageResult<GetAllProductResponse>>
+        IQueryHandler<GetAllProductQuery, PageResult<GetAllProductResponse>>
     {
         private readonly IProductRepository _productRepository;
         public GetAllProductQueryHandler(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
-        public async Task<Result<PageResult<GetAllProductResponse>>> Handle(GetAllProductCommand request, CancellationToken cancellationToken)
+        public async Task<Result<PageResult<GetAllProductResponse>>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
         {
             if (request.pageIndex <= 0 || request.pageSize <= 0)
                 return Result.Failure<PageResult<GetAllProductResponse>>(Error.BadRequest("Số trang và số lượng phần tử phải lớn hơn 0"));

@@ -4,7 +4,6 @@ using DemoShoppe.Contract.Services.Product.Response;
 
 namespace DemoShoppe.Contract.Services.Product.Request
 {
-    public sealed record GetAllProductCommand(
-        int pageIndex,
-        int pageSize) : IQuery<PageResult<GetAllProductResponse>>;
+    public sealed record GetMyProductsQuery
+    (int pageSize, int pageIndex) : IQuery<PageResult<GetMyProductsResponse>>;
 }

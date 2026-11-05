@@ -3,7 +3,7 @@ using DemoShoppe.Contract.Services.Product.Response;
 
 namespace DemoShoppe.Contract.Services.Product.Request
 {
-    public sealed record GetProductByIdCommand(Guid id) : 
+    public sealed record GetProductByIdQuery(Guid id) : 
         IQuery<GetProductByIdResponse>;
     
 }

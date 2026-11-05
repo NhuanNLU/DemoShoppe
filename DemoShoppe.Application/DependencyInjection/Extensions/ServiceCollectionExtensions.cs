@@ -7,6 +7,5 @@ namespace DemoShoppe.Application.DependencyInjection.Extensions
         public static IServiceCollection AddMediatR(this IServiceCollection services)
             => services.AddMediatR(options => options.RegisterServicesFromAssembly
                                                         (typeof(ServiceCollectionExtensions).Assembly));
-
     }
 }

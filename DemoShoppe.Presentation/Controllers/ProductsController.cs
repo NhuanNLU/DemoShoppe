@@ -3,6 +3,7 @@ using DemoShoppe.Contract.Services.Product.Request;
 using DemoShoppe.Presentation.Abstractions;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoShoppe.Presentation.Controllers
@@ -11,15 +12,19 @@ namespace DemoShoppe.Presentation.Controllers
     {
         private readonly IValidator<CreateProductCommand> _createProductValidator;
         private readonly IValidator<UpdateProductByIdCommand> _updateProductByIdValidator;
+        private readonly IValidator<GetMyProductsQuery> _getMyProductsQuery;
         public ProductsController(ISender sender,
             IValidator<CreateProductCommand> createProductValidator,
-            IValidator<UpdateProductByIdCommand> updateProductByIdValidator)
+            IValidator<UpdateProductByIdCommand> updateProductByIdValidator,
+            IValidator<GetMyProductsQuery> getMyProductsQuery)
             : base(sender)
         {
             _createProductValidator = createProductValidator;
             _updateProductByIdValidator = updateProductByIdValidator;
+            _getMyProductsQuery = getMyProductsQuery;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateProduct
             ([FromBody] CreateProductCommand request, CancellationToken cancellationToken = default)
         {
@@ -37,7 +42,7 @@ namespace DemoShoppe.Presentation.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetAllProduct
-            ([FromQuery] GetAllProductCommand request, CancellationToken cancellationToken = default)
+            ([FromQuery] GetAllProductQuery request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)
@@ -45,6 +50,7 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateProductById
             ([FromBody] UpdateProductByIdCommand request, CancellationToken cancellationToken = default)
         {
@@ -62,7 +68,7 @@ namespace DemoShoppe.Presentation.Controllers
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById
-            ([FromRoute] GetProductByIdCommand request, CancellationToken cancellationToken = default)
+            ([FromRoute] GetProductByIdQuery request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)
@@ -70,9 +76,27 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProductById
             ([FromQuery] DeleteProductByIdCommand request, CancellationToken cancellationToken = default)
         {
+            var result = await _sender.Send(request, cancellationToken);
+            if (result.IsSuccess == false || result.IsFailure == true)
+                return HandlerFailure(result);
+            return Ok(result);
+        }
+        [HttpGet("my-products")]
+        [Authorize]
+        public async Task<IActionResult> GetMyProducts
+            ([FromQuery] GetMyProductsQuery request, CancellationToken cancellationToken = default)
+        {
+            var validator = await _getMyProductsQuery.ValidateAsync(request, cancellationToken);
+            if (!validator.IsValid)
+            {
+                var message = string.Join("; ",
+                    validator.Errors.Select(e => e.ErrorMessage));
+                return HandlerFailure(Result.Failure(Error.BadRequest(message)));
+            }
             var result = await _sender.Send(request, cancellationToken);
             if (result.IsSuccess == false || result.IsFailure == true)
                 return HandlerFailure(result);

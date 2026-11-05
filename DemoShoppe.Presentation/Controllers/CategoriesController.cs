@@ -3,6 +3,7 @@ using DemoShoppe.Contract.Services.Category.Request;
 using DemoShoppe.Presentation.Abstractions;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoShoppe.Presentation.Controllers
@@ -21,6 +22,7 @@ namespace DemoShoppe.Presentation.Controllers
             _updateCategoryByIdValidator = updateCategoryByIdValidator;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateCategory
             ([FromBody] CreateCategoryCommand request,
             CancellationToken cancellationToken = default)
@@ -58,6 +60,7 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpPatch]
+        [Authorize]
         public async Task<IActionResult> UpdateCategoryById
             ([FromBody] UpdateCategoryByIdCommand request,
             CancellationToken cancellationToken = default)
@@ -75,6 +78,7 @@ namespace DemoShoppe.Presentation.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteCategoryById
             ([FromRoute] DeleteCategoryByIdCommand request, CancellationToken cancellationToken = default)
         {

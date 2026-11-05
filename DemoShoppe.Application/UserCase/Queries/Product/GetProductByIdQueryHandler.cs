@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DemoShoppe.Application.UserCase.Queries.Product
 {
     public sealed class GetProductByIdQueryHandler :
-        IQueryHandler<GetProductByIdCommand, GetProductByIdResponse>
+        IQueryHandler<GetProductByIdQuery, GetProductByIdResponse>
     {
         private readonly IProductRepository _productRepository;
         public GetProductByIdQueryHandler(IProductRepository productRepository)
@@ -16,7 +16,7 @@ namespace DemoShoppe.Application.UserCase.Queries.Product
             _productRepository = productRepository;
         }
         public async Task<Result<GetProductByIdResponse>> Handle
-            (GetProductByIdCommand request, CancellationToken cancellationToken = default)
+            (GetProductByIdQuery request, CancellationToken cancellationToken = default)
         {
             var product = await _productRepository.FindQuery()
                 .FirstOrDefaultAsync(x => x.Id == request.id && x.IsDeleted == false, cancellationToken);

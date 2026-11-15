@@ -39,7 +39,7 @@ namespace DemoShoppe.Application.UserCase.Commands.Auth
                 IsDeleted = false
             };
             _userRepository.Add(newUser);
-            var newProfile = new Profile
+            var newProfile = new Domain.Entities.Profile
             {
                 Id = Guid.NewGuid(),
                 UserId = newUser.Id,

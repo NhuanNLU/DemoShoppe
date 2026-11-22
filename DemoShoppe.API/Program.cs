@@ -23,6 +23,7 @@ builder.Services.AddProfileRepository();
 builder.Services.AddCategoryRepository();
 builder.Services.AddProductRepository();
 builder.Services.AddProductCategoryRepository();
+builder.Services.AddCartRepository();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

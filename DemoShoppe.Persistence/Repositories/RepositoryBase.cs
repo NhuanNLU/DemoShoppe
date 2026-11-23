@@ -23,8 +23,12 @@ namespace DemoShoppe.Persistence.Repositories
 
         public void Update(TEntity entity)
             => _dbContext.Set<TEntity>().Update(entity);
-
+        public void UpdateAll(List<TEntity> entities)
+            => _dbContext.Set<TEntity>().UpdateRange(entities);
         public async Task<int> TotalItems(CancellationToken cancellationToken = default)
             => await _dbContext.Set<TEntity>().AsNoTracking().CountAsync(cancellationToken);
+
+        public void RemoveAll(List<TEntity> entities)
+            => _dbContext.Set<TEntity>().RemoveRange(entities);
     }
 }

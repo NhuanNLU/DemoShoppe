@@ -17,12 +17,31 @@ namespace DemoShoppe.Presentation.Controllers
             ([FromBody] AddToCartCommand request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
+            if (!result.IsSuccess || result.IsFailure)
+            {
+                return HandlerFailure(result);
+            }
             return Ok(result);
         }
-        [HttpPatch]
+        [HttpPatch("clear-cart")]
         public async Task<IActionResult> ClearCart([FromQuery] ClearCartCommand request, CancellationToken cancellationToken = default)
         {
             var result = await _sender.Send(request, cancellationToken);
+            if (!result.IsSuccess || result.IsFailure)
+            {
+                return HandlerFailure(result);
+            }
+            return Ok(result);
+        }
+        [HttpPatch("remove-products-from-cart")]
+        public async Task<IActionResult> RemoveProductsFromCart
+            ([FromBody] RemoveProductsFromCartCommand request, CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (!result.IsSuccess || result.IsFailure)
+            {
+                return HandlerFailure(result);
+            }
             return Ok(result);
         }
     }

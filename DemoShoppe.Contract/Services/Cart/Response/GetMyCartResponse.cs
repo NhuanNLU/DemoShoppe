@@ -6,5 +6,5 @@
         Guid productId,
         int quantity,
         decimal price,
-        string image);
+        string? image);
 }

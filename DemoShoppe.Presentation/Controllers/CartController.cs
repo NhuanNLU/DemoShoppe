@@ -44,5 +44,15 @@ namespace DemoShoppe.Presentation.Controllers
             }
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetCart([FromQuery] GetMyCartQuery request, CancellationToken cancellationToken = default)
+        {
+            var result = await _sender.Send(request, cancellationToken);
+            if (!result.IsSuccess || result.IsFailure)
+            {
+                return HandlerFailure(result);
+            }
+            return Ok(result);
+        }
     }
 }

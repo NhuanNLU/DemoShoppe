@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Services\Cart\Validator\" />
-    <Folder Include="Services\Cart\Response\" />
     <Folder Include="Services\Profile\Validator\" />
   </ItemGroup>
 
